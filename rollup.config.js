@@ -78,7 +78,6 @@ export default [
 
   demo && {
     ...config,
-    external: ['two.js'],
     input: 'demo/index.ts',
     output: {
       ...config.output,
