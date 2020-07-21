@@ -52,7 +52,7 @@ multilineText.value = `another text`
 two.add(multilineText)
 ```
 
-The `MultilineText` class has the same options as [`Two.Text`](https://two.js.org/#two-text), they can be set at instanciation or later from the instance (changes are dynamically reflected).
+The `MultilineText` class has the same options as [`Two.Text`](https://two.js.org/#two-text), they can be set at instantiation or later from the instance (changes are dynamically reflected).
 
 There are extra options for measuring and wrapping behaviour:
 
