@@ -6,7 +6,7 @@
 
 Provides a `MultilineText` class fitted for Two.js. It has the same interface as the built-in [`Two.Text`](https://two.js.org/#two-text) class but allows for multiline text by handling line breaks and word wrapping using [word-wrapper](https://github.com/mattdesl/word-wrapper).
 
-[Go to the demo](https://juliendargelos.com/multiline-text) to see it in action.
+[Go to the demo](https://juliendargelos.com/twojs-multiline-text) to see it in action.
 
 ### Usage
 
