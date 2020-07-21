@@ -8,6 +8,12 @@ Provides a `MultilineText` class fitted for Two.js. It has the same interface as
 
 [Go to the demo](https://juliendargelos.com/twojs-multiline-text) to see it in action.
 
+### Install
+
+```bash
+npm i twojs-multiline-text --save
+```
+
 ### Usage
 
 ```typescript
