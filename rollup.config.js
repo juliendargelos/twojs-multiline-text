@@ -1,10 +1,10 @@
-import autoExternal from 'rollup-plugin-auto-external'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import cleaner from 'rollup-plugin-cleaner'
 import alias from '@rollup/plugin-alias'
-import serve from 'rollup-plugin-serve'
 import html from '@rollup/plugin-html'
+import builtins from 'rollup-plugin-node-builtins'
+import cleaner from 'rollup-plugin-cleaner'
+import serve from 'rollup-plugin-serve'
 import ts from 'rollup-plugin-ts'
 import { terser } from 'rollup-plugin-terser'
 import { eslint } from 'rollup-plugin-eslint'
@@ -20,9 +20,13 @@ const build = !demo
 
 const config = {
   input: 'src/index.ts',
-  output: { sourcemap: true },
+  output: {
+    sourcemap: true,
+    globals: {
+      'two.js': 'Two'
+    }
+  },
   plugins: [
-    build && autoExternal(),
     alias({
       resolve: ['.ts'],
       entries: Object
@@ -35,6 +39,7 @@ const config = {
 export default [
   build && {
     ...config,
+    external: ['two.js', 'word-wrapper'],
     output: [
       { ...config.output, file: pkg.main, format: 'cjs' },
       { ...config.output, file: pkg.module, format: 'es' }
@@ -49,6 +54,7 @@ export default [
 
   build && {
     ...config,
+    external: ['two.js'],
     output: {
       ...config.output,
       file: pkg.browser,
@@ -72,18 +78,23 @@ export default [
 
   demo && {
     ...config,
+    external: ['two.js'],
     input: 'demo/index.ts',
     output: {
       ...config.output,
       file: 'demo-dist/index.js',
-      format: 'iife'
+      format: 'iife',
+      banner: 'if (typeof window !== "undefined" && !("process" in window)) window.process = { env: {}, argv: [], stderr: {} };'
     },
     plugins: [
       ...config.plugins,
+      alias({
+        resolve: ['.ts'],
+        entries: { 'two.js': 'node_modules/two.js/build/two.js' }
+      }),
       ts({
         tsconfig: tsconfig => ({
           ...tsconfig,
-          target: 'es5',
           declaration: false
         })
       }),
@@ -91,6 +102,7 @@ export default [
       nodeResolve({ extensions: ['.ts', '.js'] }),
       commonjs(),
       html({ title: `${pkg.name} demo` }),
+      builtins(),
       production && terser(),
       development && serve('demo-dist')
     ]
