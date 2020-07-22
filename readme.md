@@ -14,6 +14,24 @@ Provides a `MultilineText` class fitted for Two.js. It has the same interface as
 npm i twojs-multiline-text --save
 ```
 
+You can also use it from CDN:
+
+```html
+<script src="https://unpkg.com/two.js"</script>
+<script src="https://unpkg.com/twojs-multiline-text"</script>
+<script>
+  // MutilineText class available in global scope as TwojsMultilineText.MultilineText
+</script>
+```
+
+Use pika CDN to import the native es module:
+
+```html
+<script type="module">
+  import { MultilineText } from 'https://cdn.pika.dev/twojs-multiline-text'
+</script>
+```
+
 ### Usage
 
 ```typescript
