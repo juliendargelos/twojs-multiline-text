@@ -6,7 +6,6 @@ declare module 'word-wrapper' {
 
   interface Parameters extends Partial<Range> {
     width?: number
-    start?: number
     mode?: 'normal' | 'pre' | 'nowrap'
     measure?: (
       text: string,
@@ -16,7 +15,7 @@ declare module 'word-wrapper' {
     ) => Range
   }
 
-  const wrap: ((text: string, parameters?: Parameters) => string) &{
+  const wrap: ((text: string, parameters?: Parameters) => string) & {
     lines (text: string, parameters?: Parameters): Range[]
   }
 
