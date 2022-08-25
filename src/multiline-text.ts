@@ -24,7 +24,29 @@ type OptionallyOffscreenCanvasRenderingContext2D = (
   CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
 )
 
-export class MultilineText extends Two.Group implements Two.Text {
+type Text = Pick<InstanceType<typeof Two.Text>, (
+  'value' |
+  'family' |
+  'size' |
+  'leading' |
+  'alignment' |
+  'fill' |
+  'stroke' |
+  'linewidth' |
+  'style' |
+  'weight' |
+  'decoration' |
+  'baseline' |
+  'opacity' |
+  'visible' |
+  'rotation' |
+  'scale' |
+  'translation' |
+  'clone' |
+  'getBoundingClientRect'
+)>
+
+export class MultilineText extends Two.Group implements Text {
   private _flagWrapping: boolean = true
   private _flagStyle: boolean = true
 
@@ -34,7 +56,7 @@ export class MultilineText extends Two.Group implements Two.Text {
   @flag('wrapping') public value: string
   @flag('wrapping') public family: string
   @flag('wrapping') public size: number
-  @flag('wrapping') public weight: number | string
+  @flag('wrapping') public weight: number
   @flag('style') public style: string
   @flag('style') public leading: number
   @flag('style') public absoluteLeading: boolean
@@ -71,7 +93,7 @@ export class MultilineText extends Two.Group implements Two.Text {
     mode?: 'normal' | 'pre' | 'nowrap'
     family?: string
     size?: number
-    weight?: number | string
+    weight?: number
     style?: string
     leading?: number
     absoluteLeading?: boolean
@@ -177,8 +199,10 @@ export class MultilineText extends Two.Group implements Two.Text {
       this.family
     }`
   }
+}
 
-  private _update (bubbles: boolean = false): this {
+Object.assign(MultilineText.prototype as any, {
+  _update(bubbles: boolean): any {
     if (this._flagWrapping) {
       let measure: (
         text: string,
@@ -196,7 +220,7 @@ export class MultilineText extends Two.Group implements Two.Text {
           : this._measureFont
       }
 
-      const texts = this.children as Two.Text[]
+      const texts = this.children as Text[]
       const lines = wrap
         .lines(this.value, {
           measure,
@@ -249,7 +273,7 @@ export class MultilineText extends Two.Group implements Two.Text {
           break
       }
 
-      ;(this.children as Two.Text[]).forEach((text, index) => {
+      ;(this.children as Text[]).forEach((text, index) => {
         text.family = family
         text.size = size
         text.leading = leading
@@ -271,9 +295,9 @@ export class MultilineText extends Two.Group implements Two.Text {
       ._update.call(this, bubbles)
 
     return this
-  }
+  },
 
-  private flagReset (): this {
+  flagReset(): any {
     this._flagWrapping = this._flagStyle = false
 
     ;(Two.Group.prototype as unknown as { flagReset (): void })
@@ -281,4 +305,4 @@ export class MultilineText extends Two.Group implements Two.Text {
 
     return this
   }
-}
+} as any)
