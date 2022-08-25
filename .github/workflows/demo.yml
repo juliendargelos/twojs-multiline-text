@@ -23,10 +23,8 @@ jobs:
       env:
         DEMO: true
     - name: Deploy
-      uses: peaceiris/actions-gh-pages@v2.10.1
+      uses: peaceiris/actions-gh-pages@v3
       with:
         emptyCommits: false
-      env:
-        PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: ./demo-dist
+        personal_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./demo-dist
