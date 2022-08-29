@@ -24,11 +24,11 @@ You can also use it from CDN:
 </script>
 ```
 
-Use pika CDN to import the native es module:
+Use skypack CDN to import the native es module:
 
 ```html
 <script type="module">
-  import { MultilineText } from 'https://cdn.pika.dev/twojs-multiline-text'
+  import { MultilineText } from 'https://cdn.skypack.dev/twojs-multiline-text@^1.0.0'
 </script>
 ```
 
