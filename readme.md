@@ -17,8 +17,8 @@ npm i twojs-multiline-text --save
 You can also use it from CDN:
 
 ```html
-<script src="https://unpkg.com/two.js"</script>
-<script src="https://unpkg.com/twojs-multiline-text"</script>
+<script src="https://unpkg.com/two.js"></script>
+<script src="https://unpkg.com/twojs-multiline-text"></script>
 <script>
   // MutilineText class available in global scope as TwojsMultilineText.MultilineText
 </script>
