@@ -1,13 +1,12 @@
 import nodeResolve from '@rollup/plugin-node-resolve'
+import typescript from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
+import terser from '@rollup/plugin-terser'
+import eslint from '@rollup/plugin-eslint'
 import alias from '@rollup/plugin-alias'
 import html from '@rollup/plugin-html'
-import builtins from 'rollup-plugin-node-builtins'
 import cleaner from 'rollup-plugin-cleaner'
 import serve from 'rollup-plugin-serve'
-import ts from 'rollup-plugin-ts'
-import { terser } from 'rollup-plugin-terser'
-import { eslint } from 'rollup-plugin-eslint'
 
 import pkg from './package.json'
 import tsconfig from './tsconfig.json'
@@ -47,7 +46,7 @@ export default [
     plugins: [
       ...config.plugins,
       eslint(),
-      ts(),
+      typescript(),
       cleaner({ targets: [pkg.main.replace(/\/[^\/]+$/, '')] }),
     ]
   },
@@ -66,9 +65,10 @@ export default [
     },
     plugins: [
       ...config.plugins,
-      ts({
-        transpileOnly: true,
-        tsconfig: tsconfig => ({ ...tsconfig, target: 'es5' })
+      typescript({
+        target: 'es5',
+        declaration: false,
+        declarationMap: false
       }),
       nodeResolve({ extensions: ['.ts', '.js'] }),
       commonjs(),
@@ -91,17 +91,15 @@ export default [
         resolve: ['.ts'],
         entries: { 'two.js': 'node_modules/two.js/build/two.js' }
       }),
-      ts({
-        tsconfig: tsconfig => ({
-          ...tsconfig,
-          declaration: false
-        })
+      typescript({
+        rootDir: undefined,
+        declaration: false,
+        declarationMap: false
       }),
       cleaner({ targets: ['demo-dist'] }),
       nodeResolve({ extensions: ['.ts', '.js'] }),
       commonjs(),
       html({ title: `${pkg.name} demo` }),
-      builtins(),
       production && terser(),
       development && serve('demo-dist')
     ]

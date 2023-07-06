@@ -273,7 +273,7 @@ Object.assign(MultilineText.prototype as any, {
           break
       }
 
-      ;(this.children as Text[]).forEach((text, index) => {
+      (this.children as Text[]).forEach((text, index) => {
         text.family = family
         text.size = size
         text.leading = leading
