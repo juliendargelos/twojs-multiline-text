@@ -84,7 +84,7 @@ There are extra options for measuring and wrapping behaviour:
 - `measure` Name of the method to use to measure text, can be one of the following:
     + `'font'` Actually measures the text by taking in account the font shape. Interprets the `width` option as a value in pixels.
     + `'monospace'` Behaves the same as `'font'` except that only one character is measured when updating text content or style. This can be used to improve performances when the font is monospaced and the text is frequently updated.
-    + '`length`' Only counts the number of characters. Interprets the `width` option as number of characters. This is the most performant method of measuring.
+    + '`length`' Only counts the number of characters. Interprets the `width` option as a number of characters. This is the most performant method of measuring.
 - `mode` Name of the method to use to wrap text. It is directly passed to the `wrap` function from [word-wrapper](https://github.com/mattdesl/word-wrapper). Can be one of the following:
     + `'normal'` Normal wrapping.
     + `'pre'` Maintains spacing.
