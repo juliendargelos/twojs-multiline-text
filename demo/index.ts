@@ -17,7 +17,8 @@ const multilineText = new MultilineText('', 0, 0, {
   alignment: 'start',
   baseline: 'middle',
   width: 500,
-  stroke: 'rgba(0, 0, 0, 0)'
+  stroke: 'rgba(255, 0, 0, 0)',
+  linewidth: 0
 })
 
 const rect = new Two.Path([
@@ -55,8 +56,8 @@ const leadingGUI = gui.add(multilineText, 'leading', 0, 5, 0.01)
 const absoluteLeadingGUI = gui.add(multilineText, 'absoluteLeading')
 gui.add(multilineText, 'alignment', ['start', 'end', 'center'])
 gui.addColor(multilineText, 'fill')
-gui.addColor(multilineText, 'stroke')
-gui.add(multilineText, 'linewidth', 0, 10)
+const strokeGUI = gui.addColor(multilineText, 'stroke')
+const linewidthGUI = gui.add(multilineText, 'linewidth', 0, 10)
 gui.add(multilineText, 'style', ['normal', 'italic'])
 gui.add(multilineText, 'weight', 100, 900, 100)
 gui.add(multilineText, 'decoration', ['none', 'underline', 'strikethrough'])
@@ -71,6 +72,14 @@ absoluteLeadingGUI.onChange(() => {
   } else {
     leadingGUI.max(5)
     leadingGUI.setValue(Math.min(5, multilineText.leading / multilineText.size))
+  }
+})
+
+linewidthGUI.onChange(() => {
+  if (multilineText.linewidth) {
+    strokeGUI.setValue(multilineText.stroke.replace(/,[^,]+$/, ', 1)'))
+  } else {
+    strokeGUI.setValue(multilineText.stroke.replace(/,[^,]+$/, ', 0)'))
   }
 })
 
