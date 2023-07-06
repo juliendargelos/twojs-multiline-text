@@ -1,7 +1,7 @@
-const { pathsToModuleNameMapper } = require('ts-jest')
-const { compilerOptions } = require('./tsconfig')
+import { pathsToModuleNameMapper } from 'ts-jest'
+import tsconfig from './tsconfig.json' assert { type: 'json' }
 
-module.exports = {
+export default {
   preset: 'ts-jest',
   roots: ['<rootDir>/src', '<rootDir>/test'],
   testMatch: ['<rootDir>/test/**/*.ts'],
@@ -9,5 +9,5 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   coverageReporters: ['text'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths)
+  moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths)
 }
