@@ -4,7 +4,7 @@
 [![build](https://github.com/juliendargelos/twojs-multiline-text/workflows/build/badge.svg?branch=master)](https://github.com/juliendargelos/twojs-multiline-text/actions?workflow=build)
 [![version](https://img.shields.io/github/package-json/v/juliendargelos/twojs-multiline-text)](https://github.com/juliendargelos/twojs-multiline-text)
 
-Provides a `MultilineText` class fitted for Two.js. It has the same interface as the built-in [`Two.Text`](https://two.js.org/#two-text) class but allows for multiline text by handling line breaks and word wrapping using [word-wrapper](https://github.com/mattdesl/word-wrapper).
+Provides a `MultilineText` class fitted for Two.js. It has the same interface as the built-in [`Two.Text`](https://two.js.org/docs/text) class but allows for multiline text by handling line breaks and word wrapping using [word-wrapper](https://github.com/mattdesl/word-wrapper).
 
 [Go to the demo](https://julien.gl/twojs-multiline-text) to see it in action.
 
@@ -76,7 +76,7 @@ multilineText.value = `another text`
 two.add(multilineText)
 ```
 
-The `MultilineText` class has the same options as [`Two.Text`](https://two.js.org/#two-text), they can be set at instantiation or later from the instance (changes are dynamically reflected).
+The `MultilineText` class has the same options as [`Two.Text`](https://two.js.org/docs/text), they can be set at instantiation or later from the instance (changes are dynamically reflected).
 
 There are extra options for measuring and wrapping behaviour:
 
