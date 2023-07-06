@@ -15,7 +15,7 @@ jobs:
     - name: Use node
       uses: actions/setup-node@v1
       with:
-        node-version: 14.x
+        node-version: 18.x
     - name: Install
       run: yarn install
     - name: Build
@@ -25,6 +25,6 @@ jobs:
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
-        emptyCommits: false
+        allow_empty_commit: false
         personal_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./demo-dist
