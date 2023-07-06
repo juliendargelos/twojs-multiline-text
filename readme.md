@@ -28,7 +28,7 @@ Use skypack CDN to import the native es module:
 
 ```html
 <script type="module">
-  import { MultilineText } from 'https://cdn.skypack.dev/twojs-multiline-text@^1.0.0'
+  import { MultilineText } from 'https://cdn.skypack.dev/twojs-multiline-text'
 </script>
 ```
 
@@ -89,3 +89,4 @@ There are extra options for measuring and wrapping behaviour:
     + `'normal'` Normal wrapping.
     + `'pre'` Maintains spacing.
     + `'nowrap'` Collapse whitespace but only break on newline characters.
+- `absoluteLeading` Determines how the `leading` option is intepreted. When set to `true`, it is intepreted as an absolute value in pixels instead of a value relative to the `size` option (`size * leading`).
