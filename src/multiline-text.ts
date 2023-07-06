@@ -129,11 +129,11 @@ export class MultilineText extends Two.Group implements Text {
     this.visible = visible
   }
 
-  public get computedLeading (): number {
+  public get computedLeading(): number {
     return this.absoluteLeading ? this.leading : this.size * this.leading
   }
 
-  private get context (): OptionallyOffscreenCanvasRenderingContext2D {
+  private get context(): OptionallyOffscreenCanvasRenderingContext2D {
     const value = (typeof OffscreenCanvas === 'function'
       ? new OffscreenCanvas(1, 1)
       : document.createElement('canvas')
@@ -148,7 +148,7 @@ export class MultilineText extends Two.Group implements Text {
     return value
   }
 
-  private get _measureMonospace (): (
+  private get _measureMonospace(): (
     text: string,
     start: number,
     end: number,
@@ -188,7 +188,7 @@ export class MultilineText extends Two.Group implements Text {
     return { start, end }
   }
 
-  private _prepareMeasureContext (): void {
+  private _prepareMeasureContext(): void {
     this.context.font = `${
       this.style
     } ${
@@ -300,7 +300,7 @@ Object.assign(MultilineText.prototype as any, {
   flagReset(): any {
     this._flagWrapping = this._flagStyle = false
 
-    ;(Two.Group.prototype as unknown as { flagReset (): void })
+    ;(Two.Group.prototype as unknown as { flagReset(): void })
       .flagReset.call(this)
 
     return this

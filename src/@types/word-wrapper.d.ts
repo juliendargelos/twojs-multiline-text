@@ -16,7 +16,7 @@ declare module 'word-wrapper' {
   }
 
   const wrap: ((text: string, parameters?: Parameters) => string) & {
-    lines (text: string, parameters?: Parameters): Range[]
+    lines(text: string, parameters?: Parameters): Range[]
   }
 
   export default wrap
