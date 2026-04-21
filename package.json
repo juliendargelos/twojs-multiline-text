@@ -8,16 +8,17 @@
   "repository": "juliendargelos/twojs-multiline-text",
   "homepage": "https://github.com/juliendargelos/twojs-multiline-text#readme",
   "bugs": "https://github.com/juliendargelos/twojs-multiline-text/issues",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "browser": "dist/index.umd.js",
-  "types": "dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
-    "dev": "rollup -cw --bundleConfigAsCjs",
+    "build": "tsdown",
+    "build:demo": "vite build",
+    "dev": "vite",
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
@@ -29,25 +30,26 @@
     "two.js": "^0.8.10"
   },
   "devDependencies": {
-    "@rollup/plugin-alias": "^5.0.0",
-    "@rollup/plugin-commonjs": "^25.0.2",
-    "@rollup/plugin-eslint": "^9.0.4",
-    "@rollup/plugin-html": "^1.0.2",
-    "@rollup/plugin-node-resolve": "^15.1.0",
-    "@rollup/plugin-terser": "^0.4.3",
-    "@rollup/plugin-typescript": "^11.1.2",
     "@types/dat.gui": "^0.7.10",
     "@types/jest": "^29.5.2",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "dat.gui": "^0.7.9",
-    "eslint": "^8.44.0",
     "jest": "^29.6.0",
-    "rollup": "^3.26.1",
-    "rollup-plugin-cleaner": "^1.0.0",
-    "rollup-plugin-serve": "^2.0.2",
     "ts-jest": "^28.0.8",
+    "tsdown": "0.21.9",
     "two.js": "^0.8.10",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "vite": "^8.0.9"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "inlinedDependencies": {
+    "word-wrapper": "1.0.7"
   }
 }

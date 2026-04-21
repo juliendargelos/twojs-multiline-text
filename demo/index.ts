@@ -1,6 +1,6 @@
 import Two from 'two.js'
 import dat from 'dat.gui'
-import { MultilineText } from '../src'
+import { MultilineText } from '../src/multiline-text'
 
 const two = new Two({
   type: Two.Types.canvas,
@@ -89,7 +89,7 @@ const text = `
   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint.
 `.trim()
 
-let interval = setInterval(() => {
+const interval = setInterval(() => {
   multilineText.value = text.slice(0, multilineText.value.length + 1)
   if (multilineText.value.length === text.length) {
     clearInterval(interval)
