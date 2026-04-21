@@ -17,14 +17,12 @@ jobs:
       with:
         node-version: 18.x
     - name: Install
-      run: yarn install
+      run: pnpm install
     - name: Build
-      run: yarn build
-      env:
-        DEMO: true
+      run: pnpm build:demo
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         allow_empty_commit: false
         personal_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./demo-dist
+        publish_dir: ./demo/dist

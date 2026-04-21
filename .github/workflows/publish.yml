@@ -18,12 +18,12 @@ jobs:
         node-version: 18.x
         registry-url: https://registry.npmjs.org
     - name: Install
-      run: yarn install
+      run: pnpm install
     - name: Test
-      run: yarn test
+      run: pnpm test
     - name: Build
-      run: yarn build
+      run: pnpm build
     - name: Publish to npm
-      uses: luvies/action-yarn-publish@v0.1.1
+      run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NODE_TOKEN }}
