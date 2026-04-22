@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.1.9
+
+
+### 📖 Documentation
+
+- Remove test badge from README ([a48615b](https://github.com/juliendargelos/twojs-multiline-text/commit/a48615b))
+
+### ❤️ Contributors
+
+- Juliendargelos <hello@julien.gl>
+
 ## v1.1.8
 
 
