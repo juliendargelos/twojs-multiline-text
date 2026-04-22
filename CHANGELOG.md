@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.2.0
+
+
+### 🚀 Enhancements
+
+- Switch demo from dat.gui to tweakpane ([521206a](https://github.com/juliendargelos/twojs-multiline-text/commit/521206a))
+
+### ❤️ Contributors
+
+- Juliendargelos <hello@julien.gl>
+
 ## v1.1.13
 
 
