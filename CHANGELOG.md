@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.1.5
+
+
+### 🤖 CI
+
+- Remove npm auth env vars from release workflow ([95b6470](https://github.com/juliendargelos/twojs-multiline-text/commit/95b6470))
+
+### ❤️ Contributors
+
+- Juliendargelos <hello@julien.gl>
+
 ## v1.1.4
 
 
