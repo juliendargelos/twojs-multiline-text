@@ -40,9 +40,13 @@ feat: add support for text alignment
 This project follows [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/), also including conventional commit types as branch prefixes.
 
 **Branch types:**
-- `main`: Production branch
-- `feat/<description>`: New features (branch from `develop`)
-- `fix/<description>`: Bug fixes (branch from `develop`)
-- `docs/<description>`: Bug fixes (branch from `develop`)
-- `style/<description>`: Hotfixes (branch from `main`)
+- `master`: Production branch — merging here automatically triggers a release via the CI workflow
+- `feat/<description>`: New features (branch from `master`)
+- `fix/<description>`: Bug fixes (branch from `master`)
+- `docs/<description>`: Documentation changes (branch from `master`)
+- `chore/<description>`: Maintenance tasks (branch from `master`)
 - ...
+
+**All work must be done on a dedicated branch, never directly on `master`.** Merging into `master` is the release trigger — only do so when the changes are ready to be released.
+
+**Never run `pnpm release` manually.** The CI handles versioning, changelog generation, tagging, and publishing automatically on every merge to `master`.
