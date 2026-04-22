@@ -57,7 +57,7 @@ const multilineText = new MultilineText(textContent, 0, 0, {
   size: 13,
   weight: 500,
   style: 'normal',
-  leading: 1.2,
+  leading: 1.3,
   absoluteLeading: false,
   alignment: 'center',
   direction: 'ltr',
