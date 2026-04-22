@@ -1,7 +1,7 @@
 {
   "name": "twojs-multiline-text",
   "version": "1.1.10",
-  "description": "",
+  "description": "MultilineText class fitted for Two.js.",
   "author": "Julien Dargelos <contact@juliendargelos.com>",
   "license": "MIT",
   "type": "module",
@@ -51,8 +51,5 @@
       "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
-  },
-  "inlinedDependencies": {
-    "word-wrapper": "1.0.7"
   }
 }
