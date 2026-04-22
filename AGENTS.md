@@ -2,6 +2,11 @@
 
 This file provides instructions for agents working on this repository.
 
+## General Rules
+
+- **Never commit or push without explicit user instruction.** Always wait for the user to ask before running `git commit` or `git push`, even if changes are ready and a message is prepared.
+- **Always confirm before committing.** When the user asks to commit, first show the proposed commit message and the list of changed files, then ask for confirmation before running `git commit`.
+
 ## Git Conventions
 
 ### Conventional Commits
