@@ -1,7 +1,6 @@
 # twojs-multiline-text
 
-[![test](https://github.com/juliendargelos/twojs-multiline-text/workflows/test/badge.svg?branch=master)](https://github.com/juliendargelos/twojs-multiline-text/actions?workflow=test)
-[![build](https://github.com/juliendargelos/twojs-multiline-text/workflows/build/badge.svg?branch=master)](https://github.com/juliendargelos/twojs-multiline-text/actions?workflow=build)
+[![build](https://github.com/juliendargelos/twojs-multiline-text/actions/workflows/build.yml/badge.svg)](https://github.com/juliendargelos/twojs-multiline-text/actions/workflows/build.yml)
 [![version](https://img.shields.io/github/package-json/v/juliendargelos/twojs-multiline-text)](https://github.com/juliendargelos/twojs-multiline-text)
 
 Provides a `MultilineText` class fitted for Two.js. It has the same interface as the built-in [`Two.Text`](https://two.js.org/docs/text) class but allows for multiline text by handling line breaks and word wrapping using [word-wrapper](https://github.com/mattdesl/word-wrapper).
