@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.1.13
+
+
+### 📖 Documentation
+
+- Add rule to pull before starting work in AGENTS.md ([9eeb76c](https://github.com/juliendargelos/twojs-multiline-text/commit/9eeb76c))
+
+### ❤️ Contributors
+
+- Juliendargelos <hello@julien.gl>
+
 ## v1.1.12
 
 
