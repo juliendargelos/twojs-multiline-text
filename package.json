@@ -1,6 +1,6 @@
 {
   "name": "twojs-multiline-text",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Multiline text for Two.js, including word wrapping.",
   "author": "Julien Dargelos <contact@juliendargelos.com>",
   "license": "MIT",
