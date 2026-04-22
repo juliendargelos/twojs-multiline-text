@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.1.6
+
+
+### 🤖 CI
+
+- Fix pnpm not found in demo workflow ([0707591](https://github.com/juliendargelos/twojs-multiline-text/commit/0707591))
+
+### ❤️ Contributors
+
+- Juliendargelos <hello@julien.gl>
+
 ## v1.1.5
 
 
