@@ -1,5 +1,5 @@
 import Two from 'two.js'
-import dat from 'dat.gui'
+import { Pane } from 'tweakpane'
 import { MultilineText } from '../src/multiline-text'
 
 const two = new Two({
@@ -17,6 +17,7 @@ const multilineText = new MultilineText('', 0, 0, {
   alignment: 'left',
   baseline: 'middle',
   width: 500,
+  fill: 'rgba(0, 0, 0, 1)',
   stroke: 'rgba(255, 0, 0, 0)',
   linewidth: 0
 })
@@ -45,44 +46,49 @@ two.bind('update', () => {
 container.add(rect, multilineText)
 two.add(container)
 
-const gui = new dat.GUI()
+const pane = new Pane()
 
-gui.add(multilineText, 'width', 0, 800, 1)
-gui.add(multilineText, 'mode', ['normal', 'pre', 'nowrap'])
-gui.add(multilineText, 'measure', ['font', 'monospace', 'length']).onChange(() => { (rect as any).visible = multilineText.measure !== 'length' })
-gui.add(multilineText, 'family')
-gui.add(multilineText, 'size', 1, 50, 0.1)
-const leadingGUI = gui.add(multilineText, 'leading', 0, 5, 0.01)
-const absoluteLeadingGUI = gui.add(multilineText, 'absoluteLeading')
-gui.add(multilineText, 'alignment', ['left', 'right', 'center'])
-gui.add(multilineText, 'direction', ['ltr', 'rtl'])
-gui.addColor(multilineText, 'fill')
-const strokeGUI = gui.addColor(multilineText, 'stroke')
-const linewidthGUI = gui.add(multilineText, 'linewidth', 0, 10)
-gui.add(multilineText, 'style', ['normal', 'italic'])
-gui.add(multilineText, 'weight', 100, 900, 100)
-gui.add(multilineText, 'decoration', ['none', 'underline', 'strikethrough'])
-gui.add(multilineText, 'baseline', ['top', 'middle', 'bottom', 'baseline'])
-gui.add(multilineText, 'opacity', 0, 1, 0.001)
-gui.add(multilineText, 'visible')
+pane.addBinding(multilineText, 'width', { min: 0, max: 800, step: 1 })
+pane.addBinding(multilineText, 'mode', { options: { normal: 'normal', pre: 'pre', nowrap: 'nowrap' } })
+pane.addBinding(multilineText, 'measure', { options: { font: 'font', monospace: 'monospace', length: 'length' } })
+  .on('change', () => { (rect as any).visible = multilineText.measure !== 'length' })
+pane.addBinding(multilineText, 'family')
+pane.addBinding(multilineText, 'size', { min: 1, max: 50, step: 0.1 })
+let leadingBinding = pane.addBinding(multilineText, 'leading', { min: 0, max: 5, step: 0.01 })
+pane.addBinding(multilineText, 'absoluteLeading')
+  .on('change', () => {
+    leadingBinding.dispose()
+    if (multilineText.absoluteLeading) {
+      multilineText.leading = Math.min(250, multilineText.leading * multilineText.size)
+      leadingBinding = pane.addBinding(multilineText, 'leading', { min: 0, max: 250, step: 0.1, index: 5 })
+    } else {
+      multilineText.leading = Math.min(5, multilineText.leading / multilineText.size)
+      leadingBinding = pane.addBinding(multilineText, 'leading', { min: 0, max: 5, step: 0.01, index: 5 })
+    }
+  })
+pane.addBinding(multilineText, 'alignment', { options: { left: 'left', right: 'right', center: 'center' } })
+pane.addBinding(multilineText, 'direction', { options: { ltr: 'ltr', rtl: 'rtl' } })
+pane.addBinding(multilineText, 'fill')
 
-absoluteLeadingGUI.onChange(() => {
-  if (multilineText.absoluteLeading) {
-    leadingGUI.max(250)
-    leadingGUI.setValue(Math.min(250, multilineText.leading * multilineText.size))
-  } else {
-    leadingGUI.max(5)
-    leadingGUI.setValue(Math.min(5, multilineText.leading / multilineText.size))
-  }
-})
+const strokeProxy = { stroke: 'rgba(255, 0, 0, 1)' }
 
-linewidthGUI.onChange(() => {
-  if (multilineText.linewidth) {
-    strokeGUI.setValue(multilineText.stroke.replace(/,[^,]+$/, ', 1)'))
-  } else {
-    strokeGUI.setValue(multilineText.stroke.replace(/,[^,]+$/, ', 0)'))
-  }
-})
+const applyStroke = () => {
+  multilineText.stroke = multilineText.linewidth
+    ? strokeProxy.stroke
+    : strokeProxy.stroke.replace(/,[^,]+\)$/, ', 0)')
+}
+
+pane.addBinding(strokeProxy, 'stroke')
+  .on('change', applyStroke)
+
+pane.addBinding(multilineText, 'linewidth', { min: 0, max: 10 })
+  .on('change', applyStroke)
+pane.addBinding(multilineText, 'style', { options: { normal: 'normal', italic: 'italic' } })
+pane.addBinding(multilineText, 'weight', { min: 100, max: 900, step: 100 })
+pane.addBinding(multilineText, 'decoration', { options: { none: 'none', underline: 'underline', strikethrough: 'strikethrough' } })
+pane.addBinding(multilineText, 'baseline', { options: { top: 'top', middle: 'middle', bottom: 'bottom', baseline: 'baseline' } })
+pane.addBinding(multilineText, 'opacity', { min: 0, max: 1, step: 0.001 })
+pane.addBinding(multilineText, 'visible')
 
 const text = `
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

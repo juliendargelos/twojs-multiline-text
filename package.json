@@ -35,12 +35,12 @@
     "two.js": "^0.8.23"
   },
   "devDependencies": {
-    "@types/dat.gui": "^0.7.10",
+    "@tweakpane/core": "^2.0.5",
     "@typescript-eslint/eslint-plugin": "^8.59.0",
     "@typescript-eslint/parser": "^8.59.0",
     "changelogen": "^0.6.2",
-    "dat.gui": "^0.7.9",
     "tsdown": "0.21.9",
+    "tweakpane": "^4.0.5",
     "two.js": "^0.8.23",
     "typescript": "6.0.3",
     "vite": "^8.0.9"
