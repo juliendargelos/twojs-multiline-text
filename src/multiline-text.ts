@@ -1,14 +1,19 @@
 import Two from 'two.js'
 import wrap from 'word-wrapper'
 
+import type {
+  AlignmentProperties,
+  StyleProperties,
+  DecorationProperties,
+  DirectionProperties,
+  BaselineProperties
+} from 'two.js/src/text'
+
+import { Shape } from 'two.js/src/shape'
+
 type OptionallyOffscreenCanvasRenderingContext2D = (
   CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
 )
-
-type AlignmentProperties = InstanceType<typeof Two.Text>['alignment']
-type StyleProperties = InstanceType<typeof Two.Text>['style']
-type DecorationProperties = InstanceType<typeof Two.Text>['decoration']
-type BaselineProperties = InstanceType<typeof Two.Text>['baseline']
 
 type Text = Pick<InstanceType<typeof Two.Text>, (
   'value' |
@@ -88,6 +93,11 @@ const proto: Record<string, PropertyDescriptor> = {
     get(this: MultilineText) { return this._alignment },
     set(this: MultilineText, v: AlignmentProperties) { this._alignment = v; this._flagStyle = true }
   },
+  direction: {
+    enumerable: true,
+    get(this: MultilineText) { return this._direction },
+    set(this: MultilineText, v: DirectionProperties) { this._direction = v; this._flagStyle = true }
+  },
   decoration: {
     enumerable: true,
     get(this: MultilineText) { return this._decoration },
@@ -109,41 +119,47 @@ const groupBackingFields: Array<[string, string]> = [
 ]
 
 export class MultilineText extends Two.Group implements Text {
-  _flagWrapping: boolean = true
-  _flagStyle: boolean = true
+  protected _flagWrapping: boolean = true
+  protected _flagStyle: boolean = true
+  protected _width!: number
+  protected _measure!: 'font' | 'monospace' | 'length'
+  protected _mode!: 'normal' | 'pre' | 'nowrap'
+  protected _value!: string
+  protected _family!: string
+  protected _size!: number
+  protected _weight!: number
+  protected _style!: StyleProperties
+  protected _leading!: number
+  protected _absoluteLeading!: boolean
+  protected _alignment!: AlignmentProperties
+  protected _direction!: DirectionProperties
+  protected _decoration!: DecorationProperties
+  protected _baseline!: BaselineProperties
+  protected declare _fill: string
+  protected declare _stroke: string
+  protected declare _linewidth: number
+  protected declare _opacity: number
+  protected declare _visible: boolean
 
-  _width: number = Infinity
-  _measure: 'font' | 'monospace' | 'length' = 'font'
-  _mode: 'normal' | 'pre' | 'nowrap' = 'normal'
-  _value: string = ''
-  _family: string = 'sans-serif'
-  _size: number = 13
-  _weight: number = 500
-  _style: StyleProperties = 'normal'
-  _leading: number = 1.2
-  _absoluteLeading: boolean = false
-  _alignment: AlignmentProperties = 'left'
-  _decoration: DecorationProperties = 'none'
-  _baseline: BaselineProperties = 'middle'
-
-  public width!: number
-  public measure!: 'font' | 'monospace' | 'length'
-  public mode!: 'normal' | 'pre' | 'nowrap'
-  public value!: string
-  public family!: string
-  public size!: number
-  public weight!: number
-  public style!: StyleProperties
-  public leading!: number
-  public absoluteLeading!: boolean
-  public alignment!: AlignmentProperties
-  declare public fill: string
-  declare public stroke: string
-  declare public linewidth: number
-  public decoration!: DecorationProperties
-  public baseline!: BaselineProperties
-  declare public opacity: number
-  declare public visible: boolean
+  public declare width: number
+  public declare measure: 'font' | 'monospace' | 'length'
+  public declare mode: 'normal' | 'pre' | 'nowrap'
+  public declare value: string
+  public declare family: string
+  public declare size: number
+  public declare weight: number
+  public declare style: StyleProperties
+  public declare leading: number
+  public declare absoluteLeading: boolean
+  public declare alignment: AlignmentProperties
+  public declare direction: DirectionProperties
+  public declare fill: string
+  public declare stroke: string
+  public declare linewidth: number
+  public declare decoration: DecorationProperties
+  public declare baseline: BaselineProperties
+  public declare opacity: number
+  public declare visible: boolean
 
   public constructor (message: string, x: number = 0, y: number = 0, {
     width = Infinity,
@@ -152,15 +168,16 @@ export class MultilineText extends Two.Group implements Text {
     family = 'sans-serif',
     size = 13,
     weight = 500,
-    style = 'normal' as StyleProperties,
-    leading = 1.2,
+    style = 'normal',
+    leading = 1.3,
     absoluteLeading = false,
-    alignment = 'left' as AlignmentProperties,
+    alignment = 'left',
+    direction = 'ltr',
     fill = '#000',
     stroke = 'transparent',
     linewidth = 1,
-    decoration = 'none' as DecorationProperties,
-    baseline = 'middle' as BaselineProperties,
+    decoration = 'none',
+    baseline = 'baseline',
     opacity = 1,
     visible = true
   }: {
@@ -174,6 +191,7 @@ export class MultilineText extends Two.Group implements Text {
     leading?: number
     absoluteLeading?: boolean
     alignment?: AlignmentProperties
+    direction?: DirectionProperties
     fill?: string
     stroke?: string
     linewidth?: number
@@ -189,7 +207,7 @@ export class MultilineText extends Two.Group implements Text {
     }
 
     for (const [backingField, flag] of groupBackingFields) {
-      let value = (this as any)[backingField]
+      let value: any
       Object.defineProperty(this, backingField, {
         get: () => value,
         set: (v) => { value = v; (this as any)[flag] = true },
@@ -208,6 +226,7 @@ export class MultilineText extends Two.Group implements Text {
     this.leading = leading
     this.absoluteLeading = absoluteLeading
     this.alignment = alignment
+    this.direction = direction
     this.fill = fill
     this.stroke = stroke
     this.linewidth = linewidth
@@ -223,7 +242,7 @@ export class MultilineText extends Two.Group implements Text {
     return this._absoluteLeading ? this._leading : this._size * this._leading
   }
 
-  private get context(): OptionallyOffscreenCanvasRenderingContext2D {
+  protected get context(): OptionallyOffscreenCanvasRenderingContext2D {
     const value = (typeof OffscreenCanvas === 'function'
       ? new OffscreenCanvas(1, 1)
       : document.createElement('canvas')
@@ -238,7 +257,7 @@ export class MultilineText extends Two.Group implements Text {
     return value
   }
 
-  private get _measureMonospace(): (
+  protected get _measureMonospace(): (
     text: string,
     start: number,
     end: number,
@@ -249,13 +268,13 @@ export class MultilineText extends Two.Group implements Text {
       start,
       end: start + Math.min(
         end - start,
-        ~~(width / charWidth),
-        ~~((end - start) * charWidth)
+        Math.floor(width / charWidth),
+        Math.floor((end - start) * charWidth)
       )
     })
   }
 
-  private _measureLength = (
+  protected _measureLength = (
     text: string,
     start: number,
     end: number,
@@ -265,7 +284,7 @@ export class MultilineText extends Two.Group implements Text {
     end: start + Math.min(width, end - start)
   })
 
-  private _measureFont = (
+  protected _measureFont = (
     text: string,
     start: number,
     end: number,
@@ -278,7 +297,7 @@ export class MultilineText extends Two.Group implements Text {
     return { start, end }
   }
 
-  private _prepareMeasureContext(): void {
+  protected _prepareMeasureContext(): void {
     this.context.font = `${
       this._style
     } ${
@@ -292,7 +311,7 @@ export class MultilineText extends Two.Group implements Text {
 }
 
 Object.assign(MultilineText.prototype as any, {
-  _update(bubbles: boolean): any {
+  _update(this: MultilineText, bubbles: boolean): any {
     if (this._flagWrapping) {
       let measure: (
         text: string,
@@ -310,7 +329,7 @@ Object.assign(MultilineText.prototype as any, {
           : this._measureFont
       }
 
-      const texts = this.children as Text[]
+      const texts = this.children as unknown as Text[]
       const lines = wrap
         .lines(this._value, {
           measure,
@@ -320,7 +339,7 @@ Object.assign(MultilineText.prototype as any, {
         .map(({ start, end }: { start: number, end: number }) => this._value.slice(start, end))
 
       while (texts.length > lines.length) {
-        this.remove(texts[0])
+        this.remove(texts[0] as unknown as Shape)
       }
 
       texts.forEach((text: Text, index: number) => {
@@ -339,8 +358,22 @@ Object.assign(MultilineText.prototype as any, {
 
       let offset: number = 0
 
+      let orientedAlignment: AlignmentProperties = this._alignment
+
+      if (this._direction === 'rtl') {
+        switch (this._alignment) {
+          case 'left':
+            orientedAlignment = 'right'
+            break
+
+          case 'right':
+            orientedAlignment = 'left'
+            break
+        }
+      }
+
       switch (this._alignment) {
-        case 'end':
+        case 'right':
           offset = this._width
           break
 
@@ -349,11 +382,14 @@ Object.assign(MultilineText.prototype as any, {
           break
       }
 
-      ;(this.children as Text[]).forEach((text, index) => {
+      ;(this.children as unknown as (Text & {
+        direction: DirectionProperties
+      })[]).forEach((text, index) => {
         text.family = this._family
         text.size = this._size
         text.leading = leading
-        text.alignment = this._alignment
+        text.alignment = orientedAlignment
+        text.direction = this._direction
         text.fill = this._fill
         text.stroke = this._stroke
         text.linewidth = this._linewidth

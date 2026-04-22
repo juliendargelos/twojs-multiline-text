@@ -37,7 +37,7 @@ importers:
         specifier: 0.21.9
         version: 0.21.9(typescript@6.0.3)
       two.js:
-        specifier: ^0.8.10
+        specifier: ^0.8.23
         version: 0.8.23
       typescript:
         specifier: 6.0.3

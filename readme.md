@@ -59,12 +59,13 @@ const multilineText = new MultilineText(textContent, 0, 0, {
   style: 'normal',
   leading: 1.2,
   absoluteLeading: false,
-  alignment: 'middle',
+  alignment: 'center',
+  direction: 'ltr',
   fill: '#000',
   stroke: 'transparent',
   linewidth: 1,
   decoration: 'none',
-  baseline: 'middle',
+  baseline: 'baseline',
   opacity: 1,
   visible: true
 })

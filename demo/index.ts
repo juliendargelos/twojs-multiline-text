@@ -14,7 +14,7 @@ container.translation.set(20, 20)
 const multilineText = new MultilineText('', 0, 0, {
   size: 36,
   weight: 900,
-  alignment: 'start',
+  alignment: 'left',
   baseline: 'middle',
   width: 500,
   stroke: 'rgba(255, 0, 0, 0)',
@@ -54,14 +54,15 @@ gui.add(multilineText, 'family')
 gui.add(multilineText, 'size', 1, 50, 0.1)
 const leadingGUI = gui.add(multilineText, 'leading', 0, 5, 0.01)
 const absoluteLeadingGUI = gui.add(multilineText, 'absoluteLeading')
-gui.add(multilineText, 'alignment', ['start', 'end', 'center'])
+gui.add(multilineText, 'alignment', ['left', 'right', 'center'])
+gui.add(multilineText, 'direction', ['ltr', 'rtl'])
 gui.addColor(multilineText, 'fill')
 const strokeGUI = gui.addColor(multilineText, 'stroke')
 const linewidthGUI = gui.add(multilineText, 'linewidth', 0, 10)
 gui.add(multilineText, 'style', ['normal', 'italic'])
 gui.add(multilineText, 'weight', 100, 900, 100)
 gui.add(multilineText, 'decoration', ['none', 'underline', 'strikethrough'])
-gui.add(multilineText, 'baseline', ['middle', 'baseline', 'top'])
+gui.add(multilineText, 'baseline', ['top', 'middle', 'bottom', 'baseline'])
 gui.add(multilineText, 'opacity', 0, 1, 0.001)
 gui.add(multilineText, 'visible')
 
