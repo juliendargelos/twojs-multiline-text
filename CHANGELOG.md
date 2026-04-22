@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.1.12
+
+
+### 🏡 Chore
+
+- Update package description ([640a7a4](https://github.com/juliendargelos/twojs-multiline-text/commit/640a7a4))
+
+### ❤️ Contributors
+
+- Juliendargelos <hello@julien.gl>
+
 ## v1.1.11
 
 
