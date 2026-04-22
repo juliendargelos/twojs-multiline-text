@@ -4,6 +4,7 @@ This file provides instructions for agents working on this repository.
 
 ## General Rules
 
+- **Always pull before starting work.** When there are no local changes yet and you are about to start making changes, run `git pull` first to ensure you are up to date with the remote.
 - **Never commit or push without explicit user instruction.** Always wait for the user to ask before running `git commit` or `git push`, even if changes are ready and a message is prepared.
 - **Always confirm before committing.** When the user asks to commit, first show the proposed commit message and the list of changed files, then ask for confirmation before running `git commit`.
 
