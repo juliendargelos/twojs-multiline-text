@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.1.10
+
+
+### 🩹 Fixes
+
+- Set base path for GitHub Pages deployment ([17f2420](https://github.com/juliendargelos/twojs-multiline-text/commit/17f2420))
+
+### ❤️ Contributors
+
+- Juliendargelos <hello@julien.gl>
+
 ## v1.1.9
 
 
