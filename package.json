@@ -5,6 +5,10 @@
   "author": "Julien Dargelos <contact@juliendargelos.com>",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@10.32.1",
   "repository": "juliendargelos/twojs-multiline-text",
   "homepage": "https://github.com/juliendargelos/twojs-multiline-text#readme",
   "bugs": "https://github.com/juliendargelos/twojs-multiline-text/issues",
@@ -19,6 +23,7 @@
     "build": "tsdown",
     "build:demo": "vite build",
     "dev": "vite",
+    "typecheck": "tsc --noEmit",
     "release": "changelogen --release --push --publish"
   },
   "dependencies": {
