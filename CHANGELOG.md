@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.1.11
+
+
+### 🏡 Chore
+
+- Add package description and remove inlinedDependencies ([4dcd35f](https://github.com/juliendargelos/twojs-multiline-text/commit/4dcd35f))
+
+### ❤️ Contributors
+
+- Juliendargelos <hello@julien.gl>
+
 ## v1.1.10
 
 
