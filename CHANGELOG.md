@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.1.7
+
+
+### 🤖 CI
+
+- Fix pnpm not found in build workflow ([ef57248](https://github.com/juliendargelos/twojs-multiline-text/commit/ef57248))
+
+### ❤️ Contributors
+
+- Juliendargelos <hello@julien.gl>
+
 ## v1.1.6
 
 
