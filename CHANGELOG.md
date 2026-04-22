@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.1.8
+
+
+### 📖 Documentation
+
+- Clarify gitflow and release process in AGENTS.md ([879510f](https://github.com/juliendargelos/twojs-multiline-text/commit/879510f))
+
+### ❤️ Contributors
+
+- Juliendargelos <hello@julien.gl>
+
 ## v1.1.7
 
 
